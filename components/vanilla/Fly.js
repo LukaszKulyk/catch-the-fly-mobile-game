@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import prepareFlyPosition from '../../helpers/helpers';
 
-const Fly = React.memo(({screenWitdth, screenHeight, hide, func, flyPositionX, flyPositionY}) => {
+const Fly = React.memo(({screenWitdth, screenHeight, setScore, hide, func, flyPositionX, flyPositionY}) => {
 
     const flyWidth = 50;
     const flyHeight = 50;
@@ -18,6 +18,7 @@ const Fly = React.memo(({screenWitdth, screenHeight, hide, func, flyPositionX, f
     function handleClick() {
         //console.log('in cardClick');
         setNewFlyPosition(newFlyPosition => prepareFlyPosition(screenWitdth, screenHeight));
+        setScore(score => score + 1)
         //setScore(score => score + 1)
         //console.log('actual score: ' + score);
         //return !hide;
@@ -26,10 +27,6 @@ const Fly = React.memo(({screenWitdth, screenHeight, hide, func, flyPositionX, f
         /*useEffect(() => {
             flyPosition = prepareFlyPosition(screenWitdth, screenHeight);
         })*/
-    }
-
-    if(hide) {
-        return null;
     }
 
     return (

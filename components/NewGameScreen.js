@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import { StyleSheet, Text, View, Button, Image, Pressable, Dimensions } from 'react-native';
-//import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-web';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-web';
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //import { NavigationContainer } from '@react-navigation/native';
 //import GameButton from './GameButton';
@@ -10,6 +10,7 @@ import Frog from './vanilla/Frog'
 import Floor from './vanilla/Floor';
 import Fly from './vanilla/Fly';
 import Stork from './vanilla/Stork'
+//import { TouchableOpacity } from 'react-native-web';
 //import prepareFlyPosition from '../helpers/helpers';
 
 //const Stack = createNativeStackNavigator();
@@ -58,13 +59,13 @@ export default function NewGameScreen({ navigation }) {
     //const [frogRight, setFrogRight] = useState(screenWitdth / 2);
     //const [frogLeft2, setFrogLeft2] = useState(screenWitdth / 2);
 
-    const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
+    //const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
 
     //const [test, setTest] = useState(0);
 
     //const [newFlyPosition, setNewFlyPosition] = useState(flyPosition);
 
-    let [score, setScore] = useState(0);
+    //let [score, setScore] = useState(0);
 
     let [flyStatus, setFlyStatus] = useState(false);
 
@@ -98,7 +99,7 @@ export default function NewGameScreen({ navigation }) {
 
 */
 
-//########## STORK LOGIC ##########
+//########## STORK LOGIC START ##########
 
     let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
     let [storkDirection, setStorkDirection] = useState(1);
@@ -152,7 +153,64 @@ export default function NewGameScreen({ navigation }) {
       }
     })
 
-//########## STORK LOGIC ##########
+//########## STORK LOGIC END ##########
+//########## FROG LOGIC START ##########
+
+    const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
+    //creating on press method to check where user clicked on the screen and make a proper move
+    const onPress = (evt) => {
+
+      //console.log(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
+      //console.log(score);
+    
+      let touchPositionX = evt.nativeEvent.locationX;
+      let touchPositionY = evt.nativeEvent.locationY;
+
+      //frog moves logic
+      let move = 0;
+
+      //add here verifying if user clicked on the Fly!!!
+
+      //calculate screenHeight
+      //let flyCatchingScreenHeighTop = screenHeight / 3;
+      //let flyCatchingScreenHeighBottom = screenHeight - (screenHeight / 3);
+
+      //console.log('flyCatchingScreenHeighTop: ' + flyCatchingScreenHeighTop);
+      //console.log('flyCatchingScreenHeighBottom' + flyCatchingScreenHeighBottom);
+
+      /*if(touchPositionY < flyCatchingScreenHeighBottom && touchPositionY >= flyCatchingScreenHeighTop) {
+        console.log('This is the place where we should catch the fly!')
+      }*/
+    
+      //left move in case frog position bigger than 25 (because frog size is set to 50)
+      if(touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition >= 25) {
+        move = -10
+      }
+      //right move in case frog position is less than screen width
+      else if (touchPositionX > (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition <= screenWitdth - 25){
+        move = 10
+      }
+      //left move in case frog position less than 0
+      else if (touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition <= 25) {
+        move = 0
+      }
+      //right move in case frog position more than screen width
+      else if (touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition >= screenWitdth - 25) {
+        move = 0
+      }
+
+      //console.log('Current move: ' + move);
+
+      //console.log('Current frog position: ' + frogPosition);
+
+      setFrogPosition(frogPosition => frogPosition + move);
+      //console.log('Current frog positionafter move: ' + frogPosition);
+    
+    }
+//########## FROG LOGIC END ##########
+//########## FLY LOGIC START ##########
+    let [score, setScore] = useState(0);
+//########## FLY LOGIC END ##########
 /*useEffect(() => {
 
   if(storkPositionX > 0 && wayOfMoving == 0) {
@@ -187,57 +245,6 @@ export default function NewGameScreen({ navigation }) {
     //console.log(screenWitdth);
     //console.log(frogBottom);
 
-    //creating on press method to check where user clicked on the screen and make a proper move
-    const onPress = (evt) => {
-
-      //console.log(evt.nativeEvent.locationX, evt.nativeEvent.locationY);
-      console.log(score);
-    
-      let touchPositionX = evt.nativeEvent.locationX;
-      let touchPositionY = evt.nativeEvent.locationY;
-
-      //frog moves logic
-      let move = 0;
-
-      //add here verifying if user clicked on the Fly!!!
-
-      //calculate screenHeight
-      let flyCatchingScreenHeighTop = screenHeight / 3;
-      let flyCatchingScreenHeighBottom = screenHeight - (screenHeight / 3);
-
-      //console.log('flyCatchingScreenHeighTop: ' + flyCatchingScreenHeighTop);
-      //console.log('flyCatchingScreenHeighBottom' + flyCatchingScreenHeighBottom);
-
-      /*if(touchPositionY < flyCatchingScreenHeighBottom && touchPositionY >= flyCatchingScreenHeighTop) {
-        console.log('This is the place where we should catch the fly!')
-      }*/
-    
-      //left move in case frog position bigger than 25 (because frog size is set to 50)
-      if(touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition >= 25) {
-        move = -10
-      }
-      //right move in case frog position is less than screen width
-      else if (touchPositionX > (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition <= screenWitdth - 25){
-        move = 10
-      }
-      //left move in case frog position less than 0
-      else if (touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition <= 25) {
-        move = 0
-      }
-      //right move in case frog position more than screen width
-      else if (touchPositionX < (screenWitdth / 2) && touchPositionY > screenHeight - (screenHeight / 3) && frogPosition >= screenWitdth - 25) {
-        move = 0
-      }
-
-      //console.log('Current move: ' + move);
-
-      //console.log('Current frog position: ' + frogPosition);
-
-      setFrogPosition( frogPosition => frogPosition + move);
-      //console.log('Current frog positionafter move: ' + frogPosition);
-    
-    }
-
     //console.log(prepareFlyPosition())
 
     //let flyPosition = prepareFlyPosition(screenWitdth, screenHeight);
@@ -255,12 +262,13 @@ export default function NewGameScreen({ navigation }) {
 
     for(let i=0; i<howManyFlys ;i++){
       flysArray.push(
-        <Fly
-          //key={i}
-          //onTouchStart={() => handleClick()}
-          screenWitdth={screenWitdth}
-          screenHeight={screenHeight}
-        />);
+          <Fly
+            key={i}
+            //onTouchStart={() => handleClick()}
+            screenWitdth={screenWitdth}
+            screenHeight={screenHeight}
+            setScore={setScore}
+          />);
     }
 
     /*changeStatus = () => {
@@ -288,6 +296,7 @@ export default function NewGameScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onTouchStart={onPress}>
+          <Text>{score}</Text>
           <Button style={{ flex: 1, alignItems: 'stretch'}} title="Back"
         onPress={() => navigation.navigate('Home')}/>
             <Stork 
@@ -295,15 +304,17 @@ export default function NewGameScreen({ navigation }) {
               screenHeight={screenHeight}
               storkPositionX={storkPositionX}
             />
-            <Fly 
-              //onTouchStart={onClick}
-              //flyPositionX={flyPosition[0]}
-              //flyPositionY={flyPosition[1]}
-              screenWitdth={screenWitdth}
-              screenHeight={screenHeight}
-              //hide={flyStatus}
-              //func={getFlyPositionDetails}
-            />
+              <Fly 
+                key={6}
+                //onTouchStart={onClick}
+                //flyPositionX={flyPosition[0]}
+                //flyPositionY={flyPosition[1]}
+                screenWitdth={screenWitdth}
+                screenHeight={screenHeight}
+                setScore={setScore}
+                //hide={flyStatus}
+                //func={getFlyPositionDetails}
+              />
           {flysArray}
           <Frog
             frogBottom={frogBottom}
