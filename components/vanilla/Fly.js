@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
-import prepareFlyPosition from '../../helpers/helpers';
+import {prepareFlyPosition} from '../../helpers/helpers';
 
 const Fly = React.memo(({screenWitdth, screenHeight, setScore, hide, func, flyPositionX, flyPositionY}) => {
 
