@@ -26,4 +26,18 @@ function prepareFlyPosition(screenWidth, screenHeight) {
     return flyPosition;
 }
 
-export default prepareFlyPosition;
+//This function generates the random number in range 0 - 1
+//and if number is 1 than Stork decided to go down 
+//and catch the frog
+function doesStorkGoDown() {
+    let decision =  generateRandomNumberInRange(0,1);
+
+    if (decision === 1){
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+export {prepareFlyPosition, doesStorkGoDown};

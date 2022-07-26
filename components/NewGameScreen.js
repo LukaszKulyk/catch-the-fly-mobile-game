@@ -12,6 +12,7 @@ import Fly from './vanilla/Fly';
 import Stork from './vanilla/Stork'
 //import { TouchableOpacity } from 'react-native-web';
 //import prepareFlyPosition from '../helpers/helpers';
+import {doesStorkGoDown} from '../helpers/helpers';
 
 //const Stack = createNativeStackNavigator();
 
@@ -100,21 +101,36 @@ export default function NewGameScreen({ navigation }) {
 */
 
 //########## STORK LOGIC START ##########
+    const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
 
     let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
     let [storkDirection, setStorkDirection] = useState(1);
+    let [storkPositionY, setStorkPositionY] = useState(screenHeight - 100)
+    //let [isStorkGoingDown, setIfStorkIsGoingDown] = useState(0);
+    //let [countStorkMovements, setNewStorkMovementValue] = useState(0);
 
     //timers for stork walking
     let storkLeftTimerId;
     let storkChangeToRightDirectionTimerId;
     let storkRightTimerId;
     let storkChangeToLeftDirectionTimerId;
+    let storkGoDownTimerId;
+    let storkStartAtTheTop;
+
+    //let countStorkMoves = 0;
+
+    //console.log(doesStorkGoDown())
 
     useEffect(() => {
 
-      if(storkPositionX > 20 && storkDirection == 0){
+      let doesStorkGoesDown = doesStorkGoDown();
+
+      if(storkPositionX > 0 && storkDirection == 0){
         storkLeftTimerId = setInterval(() => {
           setStorkPosition(storkPositionX => storkPositionX - 10)
+          if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
+            setStorkDirection(storkDirection + 2);
+          }
         }, 100)
 
         return () => {
@@ -122,7 +138,7 @@ export default function NewGameScreen({ navigation }) {
         }
       }
 
-      else if(storkPositionX <= 20 && storkDirection == 0){
+      else if(storkPositionX <= 0 && storkDirection == 0){
         storkChangeToRightDirectionTimerId = setInterval(() => {
           setStorkDirection(storkDirection + 1);
         }, 100)
@@ -135,6 +151,9 @@ export default function NewGameScreen({ navigation }) {
       else if(storkPositionX < (screenWitdth - 50) && storkDirection == 1){
         storkRightTimerId = setInterval(() => {
           setStorkPosition(storkPositionX => storkPositionX + 10)
+          if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
+            setStorkDirection(storkDirection + 1);
+          }
         }, 100)
 
         return () => {
@@ -151,12 +170,37 @@ export default function NewGameScreen({ navigation }) {
           clearInterval(storkChangeToLeftDirectionTimerId)
         }
       }
+//NEW CODE
+      else if(storkDirection == 2 && storkPositionY > 0) {
+        storkGoDownTimerId = setInterval(() => {
+          setStorkPositionY(storkPositionY => storkPositionY - 30)
+          console.log('Current stork positionY: ' + storkPositionY)
+        }, 100)
+
+        return () => {
+          clearInterval(storkGoDownTimerId)
+        }
+      }
+
+      else if(storkDirection == 2 && storkPositionY <= 0) {
+        storkStartAtTheTop = setInterval(() => {
+          setStorkPositionY(storkPositionY => screenHeight - 100)
+          setStorkDirection(storkDirection - 1);
+        }, 100)
+
+        return () => {
+          clearInterval(storkStartAtTheTop)
+        }
+      }
     })
 
+    //console.log('COunting movements: ' + countStorkMoves)
+console.log('Stork position X: ' + storkPositionX)
+console.log('Frog position X: ' + frogPosition)
 //########## STORK LOGIC END ##########
 //########## FROG LOGIC START ##########
 
-    const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
+    //const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
     //creating on press method to check where user clicked on the screen and make a proper move
     const onPress = (evt) => {
 
@@ -303,6 +347,7 @@ export default function NewGameScreen({ navigation }) {
               screenWitdth={screenWitdth}
               screenHeight={screenHeight}
               storkPositionX={storkPositionX}
+              storkPositionY={storkPositionY}
             />
               <Fly 
                 key={6}
