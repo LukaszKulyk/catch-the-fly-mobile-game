@@ -101,6 +101,9 @@ export default function NewGameScreen({ navigation }) {
 */
 
 //########## STORK LOGIC START ##########
+
+    const [isGameOver, setIsGameOver]= useState(false)
+
     const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
 
     let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
@@ -116,6 +119,8 @@ export default function NewGameScreen({ navigation }) {
     let storkChangeToLeftDirectionTimerId;
     let storkGoDownTimerId;
     let storkStartAtTheTop;
+    //COLLISIONS
+    let collisionDetectionTimerId;
 
     //let countStorkMoves = 0;
 
@@ -171,10 +176,21 @@ export default function NewGameScreen({ navigation }) {
         }
       }
 //NEW CODE
+      //COLLISIONS
+      else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && frogPosition == storkPositionX - 10){
+        collisionDetectionTimerId = setInterval(() => {
+          setIsGameOver(true)
+        }, 100)
+
+        return () => {
+          clearInterval(collisionDetectionTimerId)
+        }
+      }
+
       else if(storkDirection == 2 && storkPositionY > 0) {
         storkGoDownTimerId = setInterval(() => {
           setStorkPositionY(storkPositionY => storkPositionY - 30)
-          console.log('Current stork positionY: ' + storkPositionY)
+          //console.log('Current stork positionY: ' + storkPositionY)
         }, 100)
 
         return () => {
@@ -192,11 +208,15 @@ export default function NewGameScreen({ navigation }) {
           clearInterval(storkStartAtTheTop)
         }
       }
+
     })
 
     //console.log('COunting movements: ' + countStorkMoves)
+    //setIsGameOver(true)
 console.log('Stork position X: ' + storkPositionX)
 console.log('Frog position X: ' + frogPosition)
+console.log('Stork position Y: ' + storkPositionY)
+console.log('############## IS GAME OVER? ' + isGameOver)
 //########## STORK LOGIC END ##########
 //########## FROG LOGIC START ##########
 
@@ -340,7 +360,7 @@ console.log('Frog position X: ' + frogPosition)
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onTouchStart={onPress}>
-          <Text>{score}</Text>
+          {isGameOver && <Text>{score}</Text>}
           <Button style={{ flex: 1, alignItems: 'stretch'}} title="Back"
         onPress={() => navigation.navigate('Home')}/>
             <Stork 
