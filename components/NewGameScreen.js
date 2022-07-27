@@ -132,9 +132,12 @@ export default function NewGameScreen({ navigation }) {
 
       if(storkPositionX > 0 && storkDirection == 0){
         storkLeftTimerId = setInterval(() => {
-          setStorkPosition(storkPositionX => storkPositionX - 10)
+          //setStorkPosition(storkPositionX => storkPositionX - 10)
           if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
             setStorkDirection(storkDirection + 2);
+          }
+          else {
+            setStorkPosition(storkPositionX => storkPositionX - 10)
           }
         }, 100)
 
@@ -155,9 +158,12 @@ export default function NewGameScreen({ navigation }) {
 
       else if(storkPositionX < (screenWitdth - 50) && storkDirection == 1){
         storkRightTimerId = setInterval(() => {
-          setStorkPosition(storkPositionX => storkPositionX + 10)
+          //setStorkPosition(storkPositionX => storkPositionX + 10)
           if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
             setStorkDirection(storkDirection + 1);
+          }
+          else {
+            setStorkPosition(storkPositionX => storkPositionX + 10)
           }
         }, 100)
 
@@ -177,7 +183,7 @@ export default function NewGameScreen({ navigation }) {
       }
 //NEW CODE
       //COLLISIONS
-      else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && frogPosition == storkPositionX - 10){
+      else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && frogPosition == storkPositionX){
         collisionDetectionTimerId = setInterval(() => {
           setIsGameOver(true)
         }, 100)
@@ -213,8 +219,10 @@ export default function NewGameScreen({ navigation }) {
 
     //console.log('COunting movements: ' + countStorkMoves)
     //setIsGameOver(true)
+console.log('### SCREEN HEIGHY: ' + screenHeight)
+console.log('### SCREEN WIDTH: ' + screenWitdth)
 console.log('Stork position X: ' + storkPositionX)
-console.log('Frog position X: ' + frogPosition)
+console.log('####################### Frog position X: ' + (frogPosition - 25))
 console.log('Stork position Y: ' + storkPositionY)
 console.log('############## IS GAME OVER? ' + isGameOver)
 //########## STORK LOGIC END ##########

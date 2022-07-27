@@ -16,7 +16,7 @@ const Stork = React.memo(({screenWitdth, screenHeight, storkPositionX, storkPosi
                 width: storkWidth,
                 height: storkHeight,
                 //left: storkPositionX,
-                left: storkPositionX,
+                left: storkPositionX - (storkWidth / 2),
                 bottom: storkPositionY,
         }}></View>
     );
