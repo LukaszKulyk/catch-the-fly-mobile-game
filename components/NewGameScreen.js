@@ -369,15 +369,15 @@ console.log('############## IS GAME OVER? ' + isGameOver)
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onTouchStart={onPress}>
           {isGameOver && <Text>{score}</Text>}
-          <Button style={{ flex: 1, alignItems: 'stretch'}} title="Back"
-        onPress={() => navigation.navigate('Home')}/>
+          {isGameOver && <Button style={{ flex: 1, alignItems: 'stretch'}} title="Back"
+        onPress={() => navigation.navigate('Home')}/>}
             <Stork 
               screenWitdth={screenWitdth}
               screenHeight={screenHeight}
               storkPositionX={storkPositionX}
               storkPositionY={storkPositionY}
             />
-              <Fly 
+              {!isGameOver && <Fly 
                 key={6}
                 //onTouchStart={onClick}
                 //flyPositionX={flyPosition[0]}
@@ -387,8 +387,8 @@ console.log('############## IS GAME OVER? ' + isGameOver)
                 setScore={setScore}
                 //hide={flyStatus}
                 //func={getFlyPositionDetails}
-              />
-          {flysArray}
+              />}
+          {!isGameOver && flysArray}
           <Frog
             frogBottom={frogBottom}
             frogLeft={frogLeft}
