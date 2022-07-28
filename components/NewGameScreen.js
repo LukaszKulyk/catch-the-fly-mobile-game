@@ -133,7 +133,7 @@ export default function NewGameScreen({ navigation }) {
       if(storkPositionX > 0 && storkDirection == 0){
         storkLeftTimerId = setInterval(() => {
           //setStorkPosition(storkPositionX => storkPositionX - 10)
-          if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
+          if(doesStorkGoesDown == true && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)) {
             setStorkDirection(storkDirection + 2);
           }
           else {
@@ -159,7 +159,7 @@ export default function NewGameScreen({ navigation }) {
       else if(storkPositionX < (screenWitdth - 50) && storkDirection == 1){
         storkRightTimerId = setInterval(() => {
           //setStorkPosition(storkPositionX => storkPositionX + 10)
-          if(doesStorkGoesDown == true && frogPosition == storkPositionX) {
+          if(doesStorkGoesDown == true && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)) {
             setStorkDirection(storkDirection + 1);
           }
           else {
@@ -183,7 +183,7 @@ export default function NewGameScreen({ navigation }) {
       }
 //NEW CODE
       //COLLISIONS
-      else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && frogPosition == storkPositionX){
+      else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)){
         collisionDetectionTimerId = setInterval(() => {
           setIsGameOver(true)
         }, 100)
