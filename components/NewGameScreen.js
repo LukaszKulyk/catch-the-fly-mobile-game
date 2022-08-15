@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import GameButton from './GameButton';
 import Frog from './vanilla/Frog'
 import Floor from './vanilla/Floor';
 import Fly from './vanilla/Fly';
 import Stork from './vanilla/Stork'
 import {doesStorkGoDown} from '../helpers/helpers';
+import { ImageBackground } from 'react-native';
 
   export default function NewGameScreen({ navigation }) {
 
@@ -156,6 +157,7 @@ import {doesStorkGoDown} from '../helpers/helpers';
       setFrogPosition(frogPosition => frogPosition + move);
     
     }
+
 //########## FROG LOGIC END ##########
 //########## FLY LOGIC START ##########
     let [score, setScore] = useState(0);
@@ -176,7 +178,8 @@ import {doesStorkGoDown} from '../helpers/helpers';
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onTouchStart={onPress}>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           {isGameOver && <Text>GAME OVER</Text>}
           {isGameOver && <Text>YOUR SCORE:</Text>}
           {isGameOver && <Text>{score}</Text>}
@@ -207,5 +210,6 @@ import {doesStorkGoDown} from '../helpers/helpers';
             floorHeight={50}
           />
         </View>
+        </TouchableWithoutFeedback>
     );
   }
