@@ -1,5 +1,5 @@
 //import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Button, Image, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GameButton from './components/GameButton';
@@ -14,33 +14,35 @@ import { GameEngine } from 'react-native-game-engine';
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Welcome in Leleka game!</Text>
-      <GameButton
-        title="Game Screen"
-        onPress={() => navigation.navigate('GameScreen')}
-      />
-      <GameButton
-        title="New Game"
-        onPress={() => navigation.navigate('NewGame')}
-      />
-      <GameButton
-        title="Results"
-        onPress={() => navigation.navigate('Results')}
-      />
-      <GameButton
-        title="Settings"
-        onPress={() => navigation.navigate('Settings')}
-      />
-      <GameButton
-        title="Quit"
-        onPress={() => navigation.navigate('Quit')}
-      />
-      <GameButton
-        title="TEST"
-        onPress={() => navigation.navigate('Quit')}
-      />
-    </View>
+    <ImageBackground source={require('./assets/background_image.png')} style={styles.image} imageStyle={{resizeMode: 'contain'}}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Welcome in Leleka game!</Text>
+        <GameButton
+          title="Game Screen"
+          onPress={() => navigation.navigate('GameScreen')}
+        />
+        <GameButton
+          title="New Game"
+          onPress={() => navigation.navigate('NewGame')}
+        />
+        <GameButton
+          title="Results"
+          onPress={() => navigation.navigate('Results')}
+        />
+        <GameButton
+          title="Settings"
+          onPress={() => navigation.navigate('Settings')}
+        />
+        <GameButton
+          title="Quit"
+          onPress={() => navigation.navigate('Quit')}
+        />
+        <GameButton
+          title="TEST"
+          onPress={() => navigation.navigate('Quit')}
+        />
+      </View>
+    </ImageBackground>
   );
 }
 /*
@@ -104,17 +106,17 @@ export default function App() {
     /*<View style={styles.container}>
       <Text>Leleka Game!</Text>
       <StatusBar style="auto" />
-    </View>*/
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-      <Stack.Screen name="GameScreen" component={GameScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="NewGame" component={NewGameScreen} />
-        <Stack.Screen name="Results" component={ResultsScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="Quit" component={QuitScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    </View>*/  
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+            <Stack.Screen name="GameScreen" component={GameScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="NewGame" component={NewGameScreen} />
+              <Stack.Screen name="Results" component={ResultsScreen} />
+              <Stack.Screen name="Settings" component={SettingsScreen} />
+              <Stack.Screen name="Quit" component={QuitScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
   );
 }
 
@@ -141,9 +143,14 @@ export default App;*///}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    //backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  image: {
+    flex: 1,
+    width: null,
+    height: null
   },
   //navButton: {
       //boxShadow: 'inset, 0px 1px 0px, 0px, #caefab', 
