@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GameButton from './components/GameButton';
 import NewGameScreen from './components/NewGameScreen';
 import GameScreen from './components/GameScreen';
+import ResultsScreen from './components/ResultsScreen'
 import { GameEngine } from 'react-native-game-engine';
 //import { createStackNavigator, createAppContainer } from 'react-navigation'; 
 //import { NavigationContainer } from '@react-navigation/native';
@@ -62,17 +63,17 @@ function NewGameScreen({ navigation }) {
   );
 }*/
 
-function ResultsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Results Screen</Text>
-      <GameButton
-        title="Back"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}
+// function ResultsScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Text>Results Screen</Text>
+//       <GameButton
+//         title="Back"
+//         onPress={() => navigation.navigate('Home')}
+//       />
+//     </View>
+//   );
+// }
 
 function SettingsScreen({ navigation }) {
   return (
