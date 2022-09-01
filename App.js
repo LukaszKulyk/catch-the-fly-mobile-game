@@ -6,7 +6,8 @@ import GameButton from './components/GameButton';
 import NewGameScreen from './components/NewGameScreen';
 import GameScreen from './components/GameScreen';
 import ResultsScreen from './components/ResultsScreen'
-import { GameEngine } from 'react-native-game-engine';
+import SettingsScreen from './components/SettingsScreen'
+//import { GameEngine } from 'react-native-game-engine';
 //import { createStackNavigator, createAppContainer } from 'react-navigation'; 
 //import { NavigationContainer } from '@react-navigation/native';
 //import { useNavigation } from '@react-navigation/native'
@@ -46,27 +47,11 @@ function HomeScreen({ navigation }) {
     </ImageBackground>
   );
 }
-/*
-function NewGameScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>New Game Screen</Text>
-      <Image 
-        source={require('./assets/stork_wings_up_100_50.png')}
-        //style={{ width: 50, height: 50}}
-      />
-      <GameButton
-        title="Back"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}*/
 
-// function ResultsScreen({ navigation }) {
+// function SettingsScreen({ navigation }) {
 //   return (
 //     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Results Screen</Text>
+//       <Text>Settings Screen</Text>
 //       <GameButton
 //         title="Back"
 //         onPress={() => navigation.navigate('Home')}
@@ -74,18 +59,6 @@ function NewGameScreen({ navigation }) {
 //     </View>
 //   );
 // }
-
-function SettingsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Settings Screen</Text>
-      <GameButton
-        title="Back"
-        onPress={() => navigation.navigate('Home')}
-      />
-    </View>
-  );
-}
 
 function QuitScreen({ navigation }) {
   return (
@@ -110,7 +83,7 @@ export default function App() {
     </View>*/  
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-            <Stack.Screen name="GameScreen" component={GameScreen} />
+              <Stack.Screen name="GameScreen" component={GameScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="NewGame" component={NewGameScreen} />
               <Stack.Screen name="Results" component={ResultsScreen} />

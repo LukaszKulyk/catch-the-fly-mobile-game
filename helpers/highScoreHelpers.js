@@ -20,7 +20,7 @@ function checkHighScore(score) {
 
 function saveHighScore(score, highScores) {
 
-    const name = 'Lukasz';
+    const name = localStorage.getItem('Name');
     const newScore = {score, name};
     //console.log("New score to be saved: " + newScore.name + ' ' + newScore.score)
 

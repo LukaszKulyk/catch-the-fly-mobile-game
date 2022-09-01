@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, Dimensions, TouchableWithoutFeedback, ImageBackground } from 'react-native';
 import GameButton from './GameButton';
 import Frog from './vanilla/Frog'
 import Floor from './vanilla/Floor';
 import Fly from './vanilla/Fly';
 import Stork from './vanilla/Stork'
 import {doesStorkGoDown} from '../helpers/helpers';
-import { ImageBackground } from 'react-native';
+//import { ImageBackground } from 'react-native';
 import 'localstorage-polyfill';
 import * as highScoreHelpers from '../helpers/highScoreHelpers';
 
@@ -267,6 +267,7 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     }
 
     return (
+      <ImageBackground source={require('../assets/background_image.png')} style={{flex: 1, width: null, height: null}}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           {isGameOver && <Text>GAME OVER</Text>}
@@ -295,5 +296,6 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
           />
         </View>
       </TouchableWithoutFeedback>
+      </ImageBackground>
     );
   }
