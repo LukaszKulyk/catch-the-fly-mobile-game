@@ -15,15 +15,20 @@ export default function SettingsScreen({ navigation }) {
     return (
         <ImageBackground source={require('../assets/background_image.png')} style={{flex: 1, width: null, height: null}}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Settings Screen</Text>
-                <TextInput
-                    //style={styles.input}
-                    onChangeText={changePlayerName}//localStorage.setItem('Name', name)}
-                    value={name}
-                    placeholder="write your name..."
-                    //keyboardType="numeric"
-                    maxLength={40}
-                />
+                <Text style={{fontSize: 40}}>Settings</Text>
+                <View style={{flexDirection: 'row', margin: 10}}>
+                    <Text>Player:</Text>
+                    <TextInput
+                        //style={styles.input}
+                        style={{width: 100, textAlign: 'center'}}
+                        onChangeText={changePlayerName}//localStorage.setItem('Name', name)}
+                        value={name}
+                        placeholder="player name..."
+                        //keyboardType="numeric"
+                        maxLength={40}
+                        multiline={false}
+                    />
+                </View>
                 <GameButton
                     title="Back"
                     onPress={() => navigation.navigate('Home')}
