@@ -39,10 +39,6 @@ function HomeScreen({ navigation }) {
           title="Quit"
           onPress={() => navigation.navigate('Quit')}
         />
-        <GameButton
-          title="TEST"
-          onPress={() => navigation.navigate('Quit')}
-        />
       </View>
     </ImageBackground>
   );
