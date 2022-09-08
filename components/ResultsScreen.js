@@ -10,7 +10,7 @@ export default function ResultsScreen({ navigation }) {
 
     if(results == null || results.length < 1) {
         bestScores.push(
-            <Text>There are no results yet.</Text>
+            <Text style={styles.resultsText}>There are no results yet.</Text>
         )
     }
     else {
@@ -32,8 +32,9 @@ export default function ResultsScreen({ navigation }) {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{
                     fontSize: 40, 
-                    color: '#306108', 
+                    color: '#77d42a', 
                     fontWeight: 'bold',
+                    fontStyle: 'italic',
                     shadowOffset: {
                         width: -4,
                         height: 7
@@ -46,9 +47,9 @@ export default function ResultsScreen({ navigation }) {
                     width: '80%', 
                     marginVertical: 20, 
                     border: '2px', 
-                    borderWidth: '1px', 
-                    borderRadius: 6, 
-                    borderColor: '#268a16', 
+                    borderWidth: 4, 
+                    borderRadius: 10, 
+                    borderColor: '#77d42a', 
                     shadowOffset: {
                         width: -4,
                         height: 7
