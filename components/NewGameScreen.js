@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Dimensions, TouchableWithoutFeedback, ImageBackground } from 'react-native';
+import { Text, View, Dimensions, TouchableWithoutFeedback, ImageBackground, Modal, TextInput } from 'react-native';
 import GameButton from './GameButton';
 import Frog from './vanilla/Frog'
 import Floor from './vanilla/Floor';
@@ -175,66 +175,6 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
 //########## FLY LOGIC START ##########
     let [score, setScore] = useState(0);
 //########## FLY LOGIC END ##########
-//########## HIGH SCORE LOGIC STARTS ##########
-
-  //const highScoreString = localStorage.getItem(HIGH_SCORES);
-    //const highScores = JSON.parse(highScoreString) ?? [];
-    //const lowestScore = highScores[NO_OF_HIGH_SCORES — 1]?.score ?? 0;
-    
-  // function checkHighScore(score) {
-  //   const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
-  //   const lowestScore = highScores[NO_OF_HIGH_SCORES - 1]?.score ?? 0;//add here lenght maybe??
-  //   console.log('Current lowest score: ' + lowestScore)
-    
-  //   //new way to find last score
-  //   //const lenghOfHighScores = highScores.length;
-  //   //const lowestScore = highScores[lenghOfHighScores - 1]
-          
-  //   if (score > lowestScore) {
-  //     console.log("Let's start saving new High Score")
-  //     saveHighScore(score, highScores); // TODO
-  //     //showHighScores(); // TODO
-  //     //console.log(localStorage.getItem(HIGH_SCORES))
-  //   }
-  // }
-
-  // function saveHighScore(score, highScores) {
-
-  //   const name = 'Test';
-  //   const newScore = {score, name};
-  //   console.log("New score to be saved: " + newScore.name + ' ' + newScore.score)
-
-  //   //Add to the list
-  //   highScores.push(newScore);
-  //   // highScores.forEach(element => {
-  //   //   console.log("Current array of scores (push): " + element.name + ' ' + element.score)
-
-  //   // })
-  //   //console.log("Current array of scores (push): " + highScores.name + ' ' + highScores.score)
-
-  //   //Sort the list
-  //   highScores.sort((a, b) => b.score - a.score);
-  //   // highScores.forEach(element => {
-  //   //   console.log("Current array of scores (sort): " + element.name + ' ' + element.score)
-
-  //   // })
-  //   //console.log("Current array of scores (sort): " + highScores.name + ' ' + highScores.score)
-
-  //   //Select new list
-  //   highScores.splice(NO_OF_HIGH_SCORES);
-  //   // highScores.forEach(element => {
-  //   //   console.log("Current array of scores (splice): " + element.name + ' ' + element.score)
-
-  //   // })
-  //   //console.log("Current array of scores (splice): " + highScores.name + ' ' + highScores.score)
-
-  //   //Save to local storage
-  //   localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
-  //   highScores.forEach(element => {
-  //     console.log("Current array of scores (setItem): " + element.name + ' ' + element.score)
-
-  //   })
-  // }
 
   function gameOver() {
     clearInterval(collisionDetectionTimerId)
@@ -250,7 +190,6 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     setIsGameOver(true)
     //console.log(localStorage.getItem(HIGH_SCORES))
   }
-//########## HIGH SCORE LOGIC ENDS ##########
 
     //more flys
     let howManyFlys = 6;
@@ -278,12 +217,12 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
                             title="Back"
                             onPress={() => navigation.navigate('Home')}
                         />}
-            {!isGameOver && <Stork 
-              screenWitdth={screenWitdth}
-              screenHeight={screenHeight}
-              storkPositionX={storkPositionX}
-              storkPositionY={storkPositionY}
-            />}
+          {!isGameOver && <Stork 
+            screenWitdth={screenWitdth}
+            screenHeight={screenHeight}
+            storkPositionX={storkPositionX}
+            storkPositionY={storkPositionY}
+          />}
           {!isGameOver && flysArray}
           {!isGameOver && <Frog
             frogBottom={frogBottom}

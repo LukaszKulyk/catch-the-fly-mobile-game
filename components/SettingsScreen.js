@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ImageBackground, TextInput, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, ImageBackground, TextInput, Modal, Dimensions, TouchableWithoutFeedback, Alert } from 'react-native';
 //import { ImageBackground } from 'react-native-web';
 import GameButton from './GameButton';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -19,6 +19,24 @@ export default function SettingsScreen({ navigation }) {
     const changePlayerName = (name) => {
         setPlayerName(name);
         localStorage.setItem('Name', name)
+    }
+
+    const deleteAllResults = () => {
+        //localStorage.removeItem('highScores')
+        Alert.alert(
+            "Remove all saved results",
+            "Are you sure you want to delete all saved results? It will not be possible to restore it back.",
+            [
+                {
+                    text:"Delete",
+                    onPress: () => localStorage.removeItem('highScores')
+                },
+                {
+                    text:"Cancel",
+                    onPress: () => console.log('cancel.')
+                }
+            ]
+        )
     }
 
     return (
@@ -113,6 +131,7 @@ export default function SettingsScreen({ navigation }) {
                     <View style={{alignItems: 'center', marginBottom: 20}}>
                         <GameButton
                             title="Reset All Results"
+                            onPress={deleteAllResults}
                         />
                     </View>
                 </View>
