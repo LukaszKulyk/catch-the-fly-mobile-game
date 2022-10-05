@@ -6,7 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function SettingsScreen({ navigation }) {
 
-    const [name, setPlayerName] = useState(localStorage.getItem('Name') || 'player');
+    const [name, setPlayerName] = useState(localStorage.getItem('Name') || '');
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
@@ -91,7 +91,7 @@ export default function SettingsScreen({ navigation }) {
                         <TextInput
                             //style={styles.input}
                             style={{
-                                width: 100, 
+                                width: 200, 
                                 fontSize: 20,
                                 textAlign: 'center',
                                 color: '#306108',

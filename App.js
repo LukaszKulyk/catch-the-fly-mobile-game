@@ -7,6 +7,7 @@ import NewGameScreen from './components/NewGameScreen';
 import GameScreen from './components/GameScreen';
 import ResultsScreen from './components/ResultsScreen'
 import SettingsScreen from './components/SettingsScreen'
+import SetNewPlayerScreen from './components/SetPlayerNameScreen';
 //import { GameEngine } from 'react-native-game-engine';
 //import { createStackNavigator, createAppContainer } from 'react-navigation'; 
 //import { NavigationContainer } from '@react-navigation/native';
@@ -25,7 +26,9 @@ function HomeScreen({ navigation }) {
         />
         <GameButton
           title="New Game"
-          onPress={() => navigation.navigate('NewGame')}
+          onPress={
+            () => localStorage.getItem('highScores') == null ? navigation.navigate('SetNewPlayerScreen') : navigation.navigate('NewGame')
+          }
         />
         <GameButton
           title="Results"
@@ -85,6 +88,7 @@ export default function App() {
               <Stack.Screen name="Results" component={ResultsScreen} />
               <Stack.Screen name="Settings" component={SettingsScreen} />
               <Stack.Screen name="Quit" component={QuitScreen} />
+              <Stack.Screen name="SetNewPlayerScreen" component={SetNewPlayerScreen} />
             </Stack.Navigator>
         </NavigationContainer>
   );
