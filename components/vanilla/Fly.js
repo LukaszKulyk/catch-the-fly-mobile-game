@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import {prepareFlyPosition} from '../../helpers/helpers';
+import { Image } from "react-native"
 
 const Fly = React.memo(({screenWitdth, screenHeight, setScore, hide, func, flyPositionX, flyPositionY}) => {
 
@@ -14,6 +15,33 @@ const Fly = React.memo(({screenWitdth, screenHeight, setScore, hide, func, flyPo
     const [newFlyPosition, setNewFlyPosition] = useState(flyPosition);
 
     //const [score, setScore] = useState(0);
+    const img1 = require('../../assets/wazka_basic_black_0.png');
+    // const img2 = require('../../assets/wazka_basic_black_1.png');
+    // const img3 = require('../../assets/wazka_basic_black_2.png');
+
+    // const imgArray = [img1, img2, img3]
+    // let imgTimerId;
+
+    // const [img, setNewImg] = useState(img1)
+
+    // useEffect(() => {
+    //     imgTimerId = setInterval(() => {
+    //         if(img == img1) {
+    //             setNewImg(img => img2)
+    //         }
+    //         else if (img == img2) {
+    //             setNewImg(img => img3)
+    //         }
+    //         else if (img == img3) {
+    //             setNewImg(img => img1)
+    //         }
+
+    //     }, 100)
+
+    //     return () => {
+    //         clearInterval(imgTimerId);
+    //     }
+    // })
 
     function handleClick() {
         //console.log('in cardClick');
@@ -30,22 +58,27 @@ const Fly = React.memo(({screenWitdth, screenHeight, setScore, hide, func, flyPo
     }
 
     return (
-        <View //key={5}
+        // <View //key={5}
+        //     onTouchStart={() => handleClick()} 
+        //     style={{
+        //         position: 'absolute',
+        //         backgroundColor: 'red',
+        //         width: flyWidth,
+        //         height: flyHeight,
+        //         left: newFlyPosition[0],
+        //         bottom: newFlyPosition[1],
+        // }}></View>
+        <Image source={img1}
             onTouchStart={() => handleClick()} 
-            style={{
-                position: 'absolute',
-                backgroundColor: 'red',
-                width: flyWidth,
-                height: flyHeight,
-                //left: flyPositionX,
-                //left: flyPosition[0],
-                left: newFlyPosition[0],
-                //bottom: frogBottom - (frogHeight / 2),
-                //bottom: flyPositionY,
-                //bottom: flyPosition[1],
-                bottom: newFlyPosition[1],
-                //func: 'does it really gonna work?'
-        }}></View>
+                style={{
+                    position: 'absolute',
+                    //backgroundColor: 'red',
+                    width: flyWidth,
+                    height: flyHeight,
+                    left: newFlyPosition[0],
+                    bottom: newFlyPosition[1],
+            }}
+        ></Image>
     );
 })
 
