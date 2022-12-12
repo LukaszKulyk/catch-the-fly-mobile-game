@@ -33,6 +33,8 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     let [storkDirection, setStorkDirection] = useState(1);
     let [storkPositionY, setStorkPositionY] = useState(screenHeight - 100)
 
+    const [counter, setCounter] = useState(3);
+
     //timers for stork walking
     let storkLeftTimerId;
     let storkChangeToRightDirectionTimerId;
@@ -43,9 +45,11 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     //COLLISIONS
     let collisionDetectionTimerId;
 
+    let counterTimerId;
+
     useEffect(() => {
 
-      if(!isGameOver) {
+      if(!isGameOver && counter == 0) {
 
         let doesStorkGoesDown = doesStorkGoDown();
 
@@ -132,6 +136,15 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
           }
         }
     }
+    else if (!isGameOver && counter > 0) {
+      counterTimerId = setInterval(() => {
+        setCounter(counter => counter - 1)
+      }, 1000)
+
+      return () => {
+        clearInterval(counterTimerId)
+      }
+    }
 
     })
 
@@ -217,6 +230,7 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
                             title="Back"
                             onPress={() => navigation.navigate('Home')}
                         />}
+          {counter > 0 && <Text style={{fontSize: 120, color: '#306108'}}>{counter}</Text>}
           {!isGameOver && <Stork 
             screenWitdth={screenWitdth}
             screenHeight={screenHeight}
