@@ -5,7 +5,7 @@ import Frog from './vanilla/Frog'
 import Floor from './vanilla/Floor';
 import Fly from './vanilla/Fly';
 import Stork from './vanilla/Stork'
-import {doesStorkGoDown} from '../helpers/helpers';
+import {doesStorkGoDown, generateRandomNumberInRange} from '../helpers/helpers';
 //import { ImageBackground } from 'react-native';
 import 'localstorage-polyfill';
 import * as highScoreHelpers from '../helpers/highScoreHelpers';
@@ -29,7 +29,8 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
 
     const [frogPosition, setFrogPosition] = useState(screenWitdth / 2);
 
-    let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
+    // let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
+    let [storkPositionX, setStorkPosition] = useState(generateRandomNumberInRange(0, screenWitdth - 50));
     let [storkDirection, setStorkDirection] = useState(1);
     let [storkPositionY, setStorkPositionY] = useState(screenHeight - 100)
 
@@ -154,7 +155,7 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     //creating on press method to check where user clicked on the screen and make a proper move
     const onPress = (evt) => {
 
-      if(!isGameOver) {
+      if(!isGameOver && counter == 0) {
     
         let touchPositionX = evt.nativeEvent.locationX;
         let touchPositionY = evt.nativeEvent.locationY;
@@ -230,7 +231,7 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
                             title="Back"
                             onPress={() => navigation.navigate('Home')}
                         />}
-          {counter > 0 && <Text style={{fontSize: 120, color: '#306108'}}>{counter}</Text>}
+          {!isGameOver && counter > 0 && <Text style={{fontSize: 120, color: '#306108'}}>{counter}</Text>}
           {!isGameOver && <Stork 
             screenWitdth={screenWitdth}
             screenHeight={screenHeight}

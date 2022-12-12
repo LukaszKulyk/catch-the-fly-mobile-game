@@ -40,4 +40,4 @@ function doesStorkGoDown() {
     }
 }
 
-export {prepareFlyPosition, doesStorkGoDown};
+export {prepareFlyPosition, doesStorkGoDown, generateRandomNumberInRange};
