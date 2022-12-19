@@ -223,6 +223,14 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
       <ImageBackground source={require('../assets/background_image.png')} style={{flex: 1, width: null, height: null}}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          {!isGameOver && <Text style={{
+                                  position: 'absolute',
+                                  top: 100,
+                                  right: 30,
+                                  opacity: 0.5,
+                                  fontSize: 50, 
+                                  color: '#306108'
+                                  }}>{score}</Text>}
           {isGameOver && <Text>GAME OVER</Text>}
           {isGameOver && <Text>YOUR SCORE:</Text>}
           {isGameOver && <Text>{score}</Text>}
