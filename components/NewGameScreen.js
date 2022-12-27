@@ -23,6 +23,8 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     const NO_OF_HIGH_SCORES = 10;
     const HIGH_SCORES = 'highScores';
 
+    let [gameLvl, setGameLvl] = useState(1);
+
 //########## STORK LOGIC START ##########
 
     const [isGameOver, setIsGameOver]= useState(false)
@@ -31,7 +33,7 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
 
     // let [storkPositionX, setStorkPosition] = useState(screenWitdth / 2);
     let [storkPositionX, setStorkPosition] = useState(generateRandomNumberInRange(0, screenWitdth - 50));
-    let [storkDirection, setStorkDirection] = useState(1);
+    let [storkDirection, setStorkDirection] = useState(1); //0 -> go left | 1 -> go right | 2 -> go down
     let [storkPositionY, setStorkPositionY] = useState(screenHeight - 100)
 
     const [counter, setCounter] = useState(3);
@@ -48,42 +50,55 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
 
     let counterTimerId;
 
+    let gameLvlTimerId;
+
+
+    //Whole game logic
     useEffect(() => {
 
+      //if game in progress and counter before the game ends (3 -> 0) lets start the game
       if(!isGameOver && counter == 0) {
 
+        //returns value true/false which decides if stork goes down
         let doesStorkGoesDown = doesStorkGoDown();
 
+        //if storkPositionX is higher than 0 and storkDirection is 0 (stok goes to the left)
         if(storkPositionX > 0 && storkDirection == 0){
           storkLeftTimerId = setInterval(() => {
+            //if doesStorkGoesDown is set to true and frog and stork  X positions are on the same X line then stork goes down.
             if(doesStorkGoesDown == true && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)) {
               setStorkDirection(storkDirection + 2);
             }
+            //if frog and stork are not in the same X line, move stork as it was before.
             else {
               setStorkPosition(storkPositionX => storkPositionX - 10)
             }
-          }, 100)
+          }, 100 / gameLvl)
 
           return () => {
           clearInterval(storkLeftTimerId)
           }
         }
 
+        //if stork came to the left end of the screen and stork direction is set to go left then change stork direction to 'go left'
         else if(storkPositionX <= 0 && storkDirection == 0){
           storkChangeToRightDirectionTimerId = setInterval(() => {
             setStorkDirection(storkDirection + 1);
-          }, 100)
+          }, 100 / gameLvl)
 
           return () => {
             clearInterval(storkChangeToRightDirectionTimerId)
           }
         }
 
+        //if storkPosittion is still on the screen and stork direction is set to 'go right'
         else if(storkPositionX < (screenWitdth - 50) && storkDirection == 1){
           storkRightTimerId = setInterval(() => {
+            //if doesStorkGoesDown is set to true and frog and stork  X positions are on the same X line then stork goes down.
             if(doesStorkGoesDown == true && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)) {
               setStorkDirection(storkDirection + 1);
             }
+            //if frog and stork are not in the same X line, move stork as it was before.
             else {
               setStorkPosition(storkPositionX => storkPositionX + 10)
             }
@@ -94,49 +109,55 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
           }
         }
 
+        //if stork came to the right end of the screen and stork direction is set to go right then change stork direction to 'go left'
         else if(storkPositionX >= (screenWitdth - 50) && storkDirection == 1){
           storkChangeToLeftDirectionTimerId = setInterval(() => {
             setStorkDirection(storkDirection - 1);
-          }, 100)
+          }, 100 / gameLvl)
 
           return () => {
             clearInterval(storkChangeToLeftDirectionTimerId)
           }
         }
         //COLLISIONS
+        //if stork goes down and stork Y position is on the same like as frog position (if they touch eachother) then the game is over.
         else if(storkDirection == 2 && storkPositionY <= 100 && storkPositionY >= 30 && (frogPosition <= storkPositionX + 50 && frogPosition >= storkPositionX - 50)){
           collisionDetectionTimerId = setInterval(() => {
             //setIsGameOver(true)
             //checkHighScore(score)
             gameOver()
-          }, 100)
+          }, 100 / gameLvl)
 
           return () => {
             clearInterval(collisionDetectionTimerId)
           }
         }
 
+        //if stork goes down and his Y position is still above the top of the frog then go down.
         else if(storkDirection == 2 && storkPositionY > 0) {
           storkGoDownTimerId = setInterval(() => {
             setStorkPositionY(storkPositionY => storkPositionY - 30)
-          }, 100)
+          }, 100 / gameLvl)
 
           return () => {
             clearInterval(storkGoDownTimerId)
           }
         }
 
+        //if stork went down to the bottom of the screen then set new stork Y position and set stork direction.
         else if(storkDirection == 2 && storkPositionY <= 0) {
           storkStartAtTheTop = setInterval(() => {
             setStorkPositionY(storkPositionY => screenHeight - 100)
-            setStorkDirection(storkDirection - 1);
-          }, 100)
+            //setStorkDirection(storkDirection - 1);
+            setStorkDirection(generateRandomNumberInRange(0, 2));
+          }, 100 / gameLvl)
 
           return () => {
             clearInterval(storkStartAtTheTop)
           }
         }
     }
+    //if gameOver is false and counter still counts before the game (3,2,1...)
     else if (!isGameOver && counter > 0) {
       counterTimerId = setInterval(() => {
         setCounter(counter => counter - 1)
@@ -155,8 +176,10 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     //creating on press method to check where user clicked on the screen and make a proper move
     const onPress = (evt) => {
 
+      //if game is not over and counter counting has ended then let start the game.
       if(!isGameOver && counter == 0) {
     
+        //get location of the touch on the screen by the user.
         let touchPositionX = evt.nativeEvent.locationX;
         let touchPositionY = evt.nativeEvent.locationY;
 
@@ -203,10 +226,12 @@ import * as highScoreHelpers from '../helpers/highScoreHelpers';
     highScoreHelpers.checkHighScore(score)
     setIsGameOver(true)
     //console.log(localStorage.getItem(HIGH_SCORES))
+    clearInterval(gameLvlTimerId)
   }
 
     //more flys
-    let howManyFlys = 6;
+
+    let howManyFlys = gameLvl * 2;
     let flysArray = []
 
     for(let i=0; i<howManyFlys ;i++){
